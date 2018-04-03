@@ -4,7 +4,7 @@ version = "0.1.0"
 authors = ["Chris West (Faux) <git@goeswhere.com>"]
 
 [dependencies]
-itertools = "0.7.7"
+itertools = "0.7"
 
 [dependencies.clap]
 default-features = false
@@ -17,10 +17,6 @@ version = "0.11"
 [dependencies.rustfft]
 git = "https://github.com/awelkie/rustfft"
 rev = "3bd0f459fbddaf276e45e4f714e846498c727d5f"
-
-[dependencies.sdr]
-git = "https://github.com/FauxFaux/sdr-rs"
-rev = "8899607545d6a7732b456161c09f36a07473e426"
 
 [profile.release]
 lto = true
