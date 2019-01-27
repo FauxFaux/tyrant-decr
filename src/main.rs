@@ -3,11 +3,10 @@ use std::io::Read;
 
 use failure::Error;
 use itertools::Itertools;
-use rustfft::FFT;
 use rustfft::algorithm::Radix4;
 use rustfft::num_complex::Complex32;
 use rustfft::num_traits::Zero;
-
+use rustfft::FFT;
 
 const FFT_SIZE: usize = 64;
 const FFT_SIZE_BYTES: usize = FFT_SIZE * 2;
@@ -40,14 +39,16 @@ fn main() -> Result<(), Error> {
 
             output[0] = Complex32::zero(); // dc bias lol
             highest[output
-                        .into_iter()
-                        .enumerate()
-                        .max_by(|&(_, left), &(_, right)| left.norm_sqr().partial_cmp(&right.norm_sqr()).unwrap())
-                        .unwrap()
-                        .0] += 1;
+                .into_iter()
+                .enumerate()
+                .max_by(|&(_, left), &(_, right)| {
+                    left.norm_sqr().partial_cmp(&right.norm_sqr()).unwrap()
+                })
+                .unwrap()
+                .0] += 1;
         }
 
-        println!("{:?}", highest.iter().map(|x| x/1000).collect_vec());
+        println!("{:?}", highest.iter().map(|x| x / 1000).collect_vec());
     }
 }
 
