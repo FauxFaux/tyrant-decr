@@ -1,33 +1,20 @@
-#[macro_use]
-extern crate error_chain;
-extern crate itertools;
-extern crate rustfft;
-
-use std::fs;
 use std::io;
 use std::io::Read;
-use std::io::Write;
-use std::mem;
 
+use failure::Error;
 use itertools::Itertools;
 use rustfft::FFT;
 use rustfft::algorithm::Radix4;
 use rustfft::num_complex::Complex32;
 use rustfft::num_traits::Zero;
 
-mod errors;
-
-use errors::*;
-
-quick_main!(run);
 
 const FFT_SIZE: usize = 64;
 const FFT_SIZE_BYTES: usize = FFT_SIZE * 2;
 
 const RADIO_BUF_SIZE: usize = 16 * 16384;
-const RADIO_SAMPLE_RATE: usize = 2048 * 1000;
 
-fn run() -> Result<()> {
+fn main() -> Result<(), Error> {
     let fft = Radix4::new(FFT_SIZE, false);
 
     let mut highest = [0u64; FFT_SIZE];
